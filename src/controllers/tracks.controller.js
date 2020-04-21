@@ -3,7 +3,7 @@ const path = require("path");
 const enigma = require('enigma-code');//llama el modulo 
 const config = require("../bin/config")
 
-const {exits,getTracksJSON,SearchImage,} = require("../bin/spotify.api");
+const {exits,getTracksJSON,SearchImage,AddTodbJson} = require("../bin/spotify.api");
 
 exports.getTracks = (req,res) =>{
     try {
@@ -40,29 +40,18 @@ exports.deleteTrack = (req,res) =>{
 
 exports.uploadTrack = async (req,res) =>{       
     try{
-        console.log(req.body)
         req.file.nameInput = req.body.name;
         req.file.author=req.body.author;
 
         await SearchImage(req);
-        if(exits('tracks.json')){
-            getTracksJSON('tracks.json',(_,buffer)=>{
-                if(_) return res.json({error:_})
-                obj = JSON.parse(buffer);
-                obj.tracks.push(req.file);
-                json = JSON.stringify(obj);
-                fs.writeFile('tracks.json', json, 'utf8', () => {});
-            });
-        }else{
-            const object = {tracks:[req.file]};
-            fs.writeFile('tracks.json', JSON.stringify(object) , 'utf8', () => {});
-        }
-        res.json({file:req.body.name, filename:req.file ,result:"the file was saved"})
+        AddTodbJson("tracks.json",req);
+        
+        res.json({file:req.body.name, 
+                filename:req.file ,result:"the file was saved"})
     }catch(error){
         console.log(error)
         res.json({error})
     }
-    
 }
 
 exports.getTrack = (req,res) =>{
@@ -74,13 +63,12 @@ exports.getTrack = (req,res) =>{
     const stat = fs.statSync(pathFile)
 	const fileSize = stat.size
     const range = req.headers.range
-    console.log(range);
     if (range) {
 		const parts = range.replace(/bytes=/, "").split("-")
 		const start = parseInt(parts[0], 10);
 		const end = parts[1] ? parseInt(parts[1], 10) : fileSize-1
 		const chunksize = (end-start)+1
-		const file = fs.createReadStream(pathFile, {start, end})
+		const file = fs.createReadStream(pathFile,{start,end})
 		const head = {
 			'Content-Range': `bytes ${start}-${end}/${fileSize}`,
 			'Accept-Ranges': 'bytes',

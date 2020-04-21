@@ -26,6 +26,21 @@ getTokenSpotify = () =>{
     }
 }
 
+AddTodbJson = (namefile,req) =>{
+    if(exits(namefile)){
+        getTracksJSON(namefile,(_,buffer)=>{
+            if(_) return res.json({error:_})
+            obj = JSON.parse(buffer);
+            obj.tracks.push(req.file);
+            json = JSON.stringify(obj);
+            fs.writeFile(namefile, json, 'utf8', () => {});
+        });
+    }else{
+        const object = {tracks:[req.file]};
+        fs.writeFile(namefile, JSON.stringify(object) , 'utf8', () => {});
+    }
+}
+
 getTokenIMG = (name,type,token) =>{
     let rejectOut;
     try {

@@ -19,6 +19,7 @@ app.use(express.static('src/public'));
 
 //Routes
 app.use('/track', require('./routes/tracks.routes'));
+app.use('/video', require('./routes/videos.routes'));
 
 const server = http.createServer(app);
 server.listen(port, () =>{

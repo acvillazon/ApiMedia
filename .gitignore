@@ -7,7 +7,9 @@
 # Only exists if Bazel was run
 /bazel-out
 
+#Media content.
 /src/public/music
+/src/public/video
 
 # dependencies
 /node_modules
