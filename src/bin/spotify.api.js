@@ -104,5 +104,9 @@ SearchImage = async (req)=>{
 }
 
 module.exports={
-    exits, getTracksJSON, getTokenIMG, SearchImage
+    exits, 
+    getTracksJSON, 
+    getTokenIMG, 
+    SearchImage, 
+    AddTodbJson
 }

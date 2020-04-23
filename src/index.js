@@ -17,12 +17,18 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static('src/public'));
 
+/// ROUTES
+let track = require("./routes/tracks.routes");
+let videos = require("./routes/videos.routes");
+
 //Routes
-app.use('/track', require('./routes/tracks.routes'));
-app.use('/video', require('./routes/videos.routes'));
+app.use('/track', track);
+app.use('/video', videos);
 
 const server = http.createServer(app);
+
+///SOCKET.IO
+require("./bin/socket.connection")(app,server)
 server.listen(port, () =>{
     console.log("Server listening on port "+port);
 })
-
