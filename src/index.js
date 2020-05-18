@@ -1,34 +1,48 @@
-const express = require("express");
-const morgan = require("morgan");
-const cors = require("cors");
-const bodyParser = require("body-parser")
-const http = require("http");
+const Express = require('express');
+const morgan = require('morgan');
+const cors = require('cors');
+const http = require('http');
+const io = require('socket.io');
+const path = require('path');
+const bodyParser = require('body-parser');
+const env = require('./bin/getEnv').get();
 
-const app = new express();
-const port = process.env.PORT || 3000;
+const app = new Express();
 
-//Middelwares
-app.use(cors())
-app.use(morgan('dev'))
+const port = process.env.PORT || env.port;
+
+require('./bin/connectionDB');
+
+// Middelwares
+app.use(cors());
+app.use(morgan('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-	extended: false
-}));
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
+// /Static files
+app.use(Express.static(path.resolve(__dirname, 'public')));
 
-app.use(express.static('src/public'));
+// / ROUTES
+const track = require('./routes/tracks.routes');
+const videos = require('./routes/videos.routes');
+const users = require('./routes/user.routes');
+const chat = require('./routes/chat.routes');
 
-/// ROUTES
-let track = require("./routes/tracks.routes");
-let videos = require("./routes/videos.routes");
+app.use(track);
+app.use(videos);
+app.use(users);
+app.use(chat);
 
-//Routes
-app.use('/track', track);
-app.use('/video', videos);
-
+// / Server HTTP
 const server = http.createServer(app);
 
-///SOCKET.IO
-require("./bin/socket.connection")(app,server)
-server.listen(port, () =>{
-    console.log("Server listening on port "+port);
-})
+// / CONNECTION TO SOCKET
+module.exports.io = io(server);
+require('./bin/socket.connection');
+
+server.listen(port, () => {
+  // console.log(`Server listening on port ${port}`);
+});

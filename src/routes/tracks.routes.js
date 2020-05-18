@@ -1,13 +1,15 @@
-const {Router} = require("express");
+const { Router } = require('express');
+
 const router = new Router();
-const {upload} = require("../middleware/multer.audio.middleware");
+const { upload } = require('../middleware/multer.audio.middleware');
+const { authorize } = require('../middleware/authorize');
 
-const tracksController = require("../controllers/tracks.controller");
+const tracksController = require('../controllers/tracks.controller');
 
-
-router.get("/getTracks",tracksController.getTracks);
-router.post("/uploadTrack",upload,tracksController.uploadTrack);
-router.get("/getTrack/:id",tracksController.getTrack);
-router.get("/deleteTrack/:id",tracksController.deleteTrack);
+router.get('/tracks', authorize, tracksController.getTracks);
+router.get('/tracks/:id', tracksController.getTrack);
+router.get('/tracks/details/:id', authorize, tracksController.getTrack);
+router.post('/tracks', [authorize, upload], tracksController.uploadTrack);
+router.delete('/tracks/:id', authorize, tracksController.deleteTrack);
 
 module.exports = router;

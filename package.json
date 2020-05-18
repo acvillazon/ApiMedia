@@ -4,22 +4,37 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint ./",
+    "lint:fix": "eslint ./ --fix", 
     "dev": "nodemon src/index.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "enigma-code": "0.0.11",
     "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
     "mediaserver": "^0.1.1",
-    "mongoose": "^5.9.7",
+    "mongoose": "^5.9.12",
+    "mongoose-unique-validator": "^2.0.3",
     "morgan": "^1.10.0",
     "multer": "^1.4.2",
     "nodemon": "^2.0.2",
     "request": "^2.88.2",
     "socket.io": "^2.3.0",
     "uuid": "^7.0.3"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb-base": "^14.1.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-prettier": "^3.1.3",
+    "prettier": "^2.0.5"
   }
 }
