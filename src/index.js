@@ -6,6 +6,9 @@ const io = require('socket.io');
 const path = require('path');
 const bodyParser = require('body-parser');
 const env = require('./bin/getEnv').get();
+const lowdb = require('./bin/lowdb');
+
+lowdb.doConexion();
 
 const app = new Express();
 
@@ -44,5 +47,5 @@ module.exports.io = io(server);
 require('./bin/socket.connection');
 
 server.listen(port, () => {
-  // console.log(`Server listening on port ${port}`);
+  console.log(`Server listening on port ${port}`);
 });

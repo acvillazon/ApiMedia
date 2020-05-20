@@ -1,30 +1,37 @@
 /* eslint-disable consistent-return */
 const fs = require('fs');
 const path = require('path');
+// eslint-disable-next-line no-unused-vars
 const l = require('lodash');
+const db = require('../bin/lowdb');
+
+// eslint-disable-next-line no-unused-vars
 const { exits, getTracksJSON, AddTodbJson } = require('../bin/spotify.api');
 
-exports.getVideos = (req, res) => {
-  const skip = req.body.skip || 0;
-  const limit = req.body.limit || 20;
-
-  try {
-    if (exits('videos.json')) {
-      getTracksJSON('videos.json', (_, videos) => {
-        if (_) return res.json({ error: _ });
-        const response = l.filter(JSON.parse(videos).tracks, (v, i) => {
-          if (i >= skip && i <= limit) {
-            return v;
-          }
-        });
-        res.json(response);
-      });
-    } else {
-      return res.json({ error: 'file dont exist' });
-    }
-  } catch (error) {
-    return res.json({ error });
-  }
+exports.getVideos = async (req, res) => {
+  const videos = await db.getDB();
+  console.log(videos.get('videos').value());
+  // const registers = db.get('videos').value();
+  res.json({ videos });
+  // const skip = req.body.skip || 0;
+  // const limit = req.body.limit || 20;
+  // try {
+  //   if (exits('videos.json')) {
+  //     getTracksJSON('videos.json', (_, videos) => {
+  //       if (_) return res.json({ error: _ });
+  //       const response = l.filter(JSON.parse(videos).tracks, (v, i) => {
+  //         if (i >= skip && i <= limit) {
+  //           return v;
+  //         }
+  //       });
+  //       res.json(response);
+  //     });
+  //   } else {
+  //     return res.json({ error: 'file dont exist' });
+  //   }
+  // } catch (error) {
+  //   return res.json({ error });
+  // }
 };
 
 exports.uploadVideo = (req, res) => {
