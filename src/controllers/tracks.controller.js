@@ -1,51 +1,25 @@
 /* eslint-disable consistent-return */
 const fs = require('fs');
-const l = require('lodash');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const config = require('../bin/getEnv').get();
+const { v1: uuid } = require('uuid');
+const env = require('../bin/getEnv').get();
+const { exits, SearchImage } = require('../bin/spotify.api');
 
-const { exits, getTracksJSON, SearchImage, AddTodbJson } = require('../bin/spotify.api');
-
-exports.getTracks = (req, res) => {
+exports.getTracks = async (req, res) => {
   const skip = req.body.skip || 0;
   const limit = req.body.limit || 20;
 
   try {
-    if (exits('tracks.json')) {
-      getTracksJSON('tracks.json', (_, tracks) => {
-        if (_) return res.status(400).json({ _ });
+    const tracks = await req.db.get('tracks').slice(skip).take(limit).value();
 
-        const response = l.filter(JSON.parse(tracks).tracks, (v, i) => {
-          if (i >= skip && i <= limit) {
-            return v;
-          }
-        });
-        res.status(200).json(response);
-      });
-    } else {
-      return res.status(404).json({ error: 'file dont exist' });
-    }
+    res.status(200).json({ tracks });
   } catch (error) {
-    return res.status(500).json({ error });
+    res.status(500).json({ error });
   }
 };
 
-exports.deleteTrack = (req, res) => {
-  try {
-    const { id } = req.params;
-    const pathFile = `${path.dirname(__dirname)}/public/music/${id}`;
-
-    if (!exits(pathFile)) return res.json({ error: 'file dont exist' });
-
-    fs.unlink(pathFile, (err) => {
-      if (err) return res.json({ err, message: 'Error al eliminar archivo' });
-      res.json({ result: 'Archivo fue borrado' });
-    });
-  } catch (error) {
-    return res.json({ error });
-  }
-};
+// exports.deleteTrack = (req, res) => {};
 
 exports.uploadTrack = async (req, res) => {
   try {
@@ -53,11 +27,27 @@ exports.uploadTrack = async (req, res) => {
     req.file.author = req.body.author;
 
     await SearchImage(req);
-    AddTodbJson('tracks.json', req);
-
-    res.json({ file: req.body.name, filename: req.file, result: 'the file was saved' });
+    req.db
+      .get('tracks')
+      .push(req.file)
+      .last()
+      .assign({ id: uuid() })
+      .write()
+      .then((file) => {
+        res.status(200).json({
+          file: req.body.name,
+          filename: file,
+          result: 'the file was saved',
+        });
+      })
+      .catch((error) => {
+        res.status(500).json({
+          error,
+          result: 'Something was wrong',
+        });
+      });
   } catch (error) {
-    res.json({ error });
+    res.status(500).json({ error });
   }
 };
 
@@ -65,7 +55,7 @@ exports.getTrack = (req, res) => {
   const { token } = req.query;
 
   // eslint-disable-next-line no-unused-vars
-  jwt.verify(token, config.key_toen, (err, decode) => {
+  jwt.verify(token, env.key_token, (err, decode) => {
     if (err) {
       return req.status(400).json({ err: { message: 'The token is not valid' } });
     }

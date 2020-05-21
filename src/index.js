@@ -1,3 +1,5 @@
+/* eslint-disable global-require */
+/* eslint-disable func-names */
 const Express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
@@ -6,12 +8,17 @@ const io = require('socket.io');
 const path = require('path');
 const bodyParser = require('body-parser');
 const env = require('./bin/getEnv').get();
-const lowdb = require('./bin/lowdb');
 
-lowdb.doConexion();
+// let env = {};
+// (async function () {
+//   env = await require('./bin/getEnv').get();
+//   console.log(env);
+// })();
 
+const { LOWDB } = require('./middleware/lowdb.middleware');
+
+new LOWDB().createDB(); // create DB lowDb
 const app = new Express();
-
 const port = process.env.PORT || env.port;
 
 require('./bin/connectionDB');

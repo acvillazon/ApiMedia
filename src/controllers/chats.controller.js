@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const l = require('lodash');
 const { ObjectId } = require('mongoose').Types;
 const Pending = require('../models/pending');

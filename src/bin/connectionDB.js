@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const mongoose = require('mongoose');
 const env = require('./getEnv').get();
 
@@ -16,10 +15,8 @@ mongoose.connect(
   },
   (err) => {
     if (err) {
-      // eslint-disable-next-line no-console
       return console.log('The conection failed');
     }
-    // eslint-disable-next-line no-console
     console.log(`Conection success with dbMongo on port ${env.dbPort}`);
   }
 );

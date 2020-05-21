@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 const { io } = require('../index');
 const { Message } = require('./message');
 const Pending = require('../controllers/chats.controller');
@@ -9,7 +8,6 @@ function SendMessage({ message, dest, user }) {
   const messageObject = new Message(message, user, dest);
   const destination = HASH_CONNECTION.get(dest);
   if (!destination) {
-    // eslint-disable-next-line no-console
     console.log(Pending.createPending(messageObject));
   } else {
     io.to(destination).emit('newMessage', {
@@ -31,7 +29,6 @@ io.on('connection', (socket) => {
     io.emit('streamFromClient', data);
   });
 
-  // ///CHAT
   socket.on('disconnect', () => {
     HASH_CONNECTION.forEach((value, key) => {
       if (socket.id === value) {
@@ -46,15 +43,5 @@ io.on('connection', (socket) => {
     } else {
       SendMessage(data.message);
     }
-  });
-
-  socket.on('writing', (data) => {
-    const dest = HASH_CONNECTION.get(data.dest);
-    if (!dest) return null;
-
-    io.to(HASH_CONNECTION.get(dest)).emit('newMessage', {
-      writing: data.wr,
-      user: data.id,
-    });
   });
 });
