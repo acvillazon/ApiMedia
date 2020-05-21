@@ -1,7 +1,89 @@
 {
   "tracks": [
     {
-      "id": 56
+      "fieldname": "track",
+      "originalname": "ahora_soy_yo.mp3",
+      "encoding": "7bit",
+      "mimetype": "audio/mpeg",
+      "destination": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music",
+      "filename": "1ac14ec2-a2e1-431d-b4b5-39c8639a7c38.mp3",
+      "path": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music/1ac14ec2-a2e1-431d-b4b5-39c8639a7c38.mp3",
+      "size": 8714080,
+      "nameInput": "Ahora soy yo",
+      "author": "Eddy Herrera",
+      "img": {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e02a834f2ab82bc49286b2e01a3",
+        "width": 300
+      }
+    },
+    {
+      "fieldname": "track",
+      "originalname": "Nicki Minaj Ft. Karol G - Tusa (www.setbeat.com).mp3",
+      "encoding": "7bit",
+      "mimetype": "audio/mpeg",
+      "destination": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music",
+      "filename": "a204c0e1-7007-4127-a4f4-11653c03425a.mp3",
+      "path": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music/a204c0e1-7007-4127-a4f4-11653c03425a.mp3",
+      "size": 8040533,
+      "nameInput": "Tusa",
+      "author": "Karol G",
+      "img": {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e02ddd3154c58e15a8bdb63bbcc",
+        "width": 300
+      }
+    },
+    {
+      "fieldname": "track",
+      "originalname": "25_horas.mp3",
+      "encoding": "7bit",
+      "mimetype": "audio/mpeg",
+      "destination": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music",
+      "filename": "fecce04a-0406-402c-a239-cb470aa3071f.mp3",
+      "path": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music/fecce04a-0406-402c-a239-cb470aa3071f.mp3",
+      "size": 9906832,
+      "nameInput": "25 Horas",
+      "author": "Plan B",
+      "img": {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e020f1547df3175b0aa9414fbed",
+        "width": 300
+      }
+    },
+    {
+      "fieldname": "track",
+      "originalname": "Jerry Rivera featuring Voltio - Mi Libertad.mp3",
+      "encoding": "7bit",
+      "mimetype": "audio/mpeg",
+      "destination": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music",
+      "filename": "97d3c866-832d-4f07-a7d3-4ef819c8fd99.mp3",
+      "path": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music/97d3c866-832d-4f07-a7d3-4ef819c8fd99.mp3",
+      "size": 6801856,
+      "nameInput": "Mi libertad",
+      "author": "Jerry Rivera",
+      "img": {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e020d63176aea26c39381f17ae5",
+        "width": 300
+      }
+    },
+    {
+      "fieldname": "track",
+      "originalname": "a_simple_way.mp3",
+      "encoding": "7bit",
+      "mimetype": "audio/mp3",
+      "destination": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music",
+      "filename": "b00cdff8-3079-49cc-ad7c-46c986045418.mp3",
+      "path": "/Users/villa/Desktop/Angular-curso/personalApps/APImedia/src/public/music/b00cdff8-3079-49cc-ad7c-46c986045418.mp3",
+      "size": 6108683,
+      "nameInput": "simple way",
+      "author": "Daddy",
+      "img": {
+        "height": 300,
+        "url": "https://i.scdn.co/image/ab67616d00001e026635551967411b4f30ba5d3d",
+        "width": 300
+      }
     }
   ],
   "videos": [
