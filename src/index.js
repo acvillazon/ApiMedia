@@ -9,11 +9,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const env = require('./bin/getEnv').get();
 
-// let env = {};
-// (async function () {
-//   env = await require('./bin/getEnv').get();
-//   console.log(env);
-// })();
+if (env.notFound) throw new Error('It was not possible to load env variables.');
 
 const { LOWDB } = require('./middleware/lowdb.middleware');
 
