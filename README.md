@@ -37,10 +37,48 @@ Some configuration that you can put in your eslintrc is the next:
 "parser": "babel-eslint",
 "rules": {
     "prettier/prettier": "error"
-    "no-unused-vars":"warm"
-    "no-console":"off"
-    "func-names":"off",
-    "no-process-exit":"off",
-    "class-methods-use-this":"off"
+    "no-unused-vars": "warm"
+    "no-console": "off"
+    "func-names": "off"
+    "no-process-exit": "off"
+    "class-methods-use-this": "off"
 }
+```
+
+We could do that VScode execute "Prettier" and "eslint" automatically as well.
+For this we need to have to modify our settings.
+
+```json
+{
+  ///////////////////
+  "editor.formatOnSave": true, -> this line was added
+  "window.zoomLevel": -1,
+  "editor.fontSize": 14,
+  "workbench.iconTheme": "material-icon-theme",
+  "git.confirmSync": false,
+  "files.associations": {
+    "*.json": "json"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "workbench.colorTheme": "Community Material Theme Darker",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    ///////
+    "editor.formatOnSave": true -> this line was added
+  },
+  ///////////
+  "eslint.codeActionsOnSave.mode": "all", -> this line was added
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
+```
+
+```
+
 ```
