@@ -19,7 +19,7 @@ the next command help us to generate the config file.
 
 * It is recommended that we use the rules plugins of arb [Airbnb](https://www.npmjs.com/package/eslint-config-airbnb).
 
-En resumen, We need to install
+In resume, We need to install
 `eslint`
 `prettier`
 `eslint-plugin-node`
@@ -27,16 +27,20 @@ En resumen, We need to install
 `eslint-config-prettier`
 `eslint-config-node`
 `eslint-config-airbnb`
+`bable-eslint`
 
 Some configuration that you can put in your eslintrc is the next:
+
+```json
 "extends": ["airbnb-base","prettier","plugin/node:recommended"],
 "plugins": ["prettier"],
 "parser": "babel-eslint",
 "rules": {
-"prettier/prettier": "error"
-"no-unused-vars":"warm"
-"no-console":"off"
-"func-names":"off",
-"no-process-exit":"off",
-"class-methods-use-this":"off"
+    "prettier/prettier": "error"
+    "no-unused-vars":"warm"
+    "no-console":"off"
+    "func-names":"off",
+    "no-process-exit":"off",
+    "class-methods-use-this":"off"
 }
+```
