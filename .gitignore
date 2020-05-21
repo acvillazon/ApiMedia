@@ -7,15 +7,14 @@
 # Only exists if Bazel was run
 /bazel-out
 
+/src/env.json
+
 #Media content.
 /src/public/music
 /src/public/video
 
 # dependencies
-/node_modules
-
-#env
-/src/env.json
+node_modules
 
 # profiling files
 chrome-profiler-events*.json
