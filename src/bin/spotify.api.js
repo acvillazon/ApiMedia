@@ -4,7 +4,6 @@
 /* eslint-disable no-loop-func */
 const fs = require('fs');
 const request = require('request');
-const env = require('./getEnv').get();
 
 const exits = (name) => fs.existsSync(name);
 
@@ -18,8 +17,8 @@ const getTokenSpotify = () => {
         {
           form: {
             grant_type: 'client_credentials',
-            client_id: env.client_id,
-            client_secret: env.client_secret,
+            client_id: process.env.CLIENT_ID,
+            client_secret: process.env.CLIENT_SECRET,
           },
         },
         (_, respo) => {

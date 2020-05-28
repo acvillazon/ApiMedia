@@ -1,5 +1,4 @@
 const jwt = require('jsonwebtoken');
-const env = require('../bin/getEnv').get();
 
 exports.authorize = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -11,7 +10,7 @@ exports.authorize = (req, res, next) => {
   // Verificar
   const token = req.headers.authorization.split(' ')[1];
 
-  jwt.verify(token, env.key_token, (err, decode) => {
+  jwt.verify(token, process.env.KEY_TOKEN, (err, decode) => {
     if (err) {
       return res.status(400).json({
         message: 'It has occurred an error by the token given',
@@ -33,7 +32,7 @@ exports.createToken = (user) => {
     {
       user,
     },
-    env.key_token,
+    process.env.KEY_TOKEN,
     { expiresIn: 60 * 60 * 24 * 7 }
   );
 

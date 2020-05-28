@@ -3,7 +3,6 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const { v1: uuid } = require('uuid');
 const { exits } = require('../bin/spotify.api');
-const env = require('../bin/getEnv').get();
 
 exports.getVideos = async (req, res) => {
   const skip = req.body.skip || 0;
@@ -50,7 +49,7 @@ exports.getVideo = (req, res) => {
   const { token } = req.query;
 
   // eslint-disable-next-line no-unused-vars
-  jwt.verify(token, env.key_token, (err, _) => {
+  jwt.verify(token, process.env.KEY_TOKEN, (err, _) => {
     if (err) {
       return req.status(400).json({ err: { message: 'The token is not valid' } });
     }

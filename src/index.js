@@ -7,15 +7,18 @@ const http = require('http');
 const io = require('socket.io');
 const path = require('path');
 const bodyParser = require('body-parser');
-const env = require('./bin/getEnv').get();
 
-if (env.notFound) throw new Error('It was not possible to load env variables.');
+const ENV = process.env.NODE_ENV || 'development';
+
+require('dotenv').config({
+  path: `./src/.env.${ENV}`,
+});
 
 const { LOWDB } = require('./middleware/lowdb.middleware');
 
 new LOWDB().createDB(); // create DB lowDb
 const app = new Express();
-const port = process.env.PORT || env.port;
+const port = process.env.PORT || 3000;
 
 require('./bin/connectionDB');
 

@@ -8,7 +8,7 @@
 /bazel-out
 
 #env
-/src/env.*
+/src/.env.*
 
 #Media content.
 /src/public/music
